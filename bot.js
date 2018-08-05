@@ -2317,7 +2317,7 @@ client.on('message', message => {
      let embed = new Discord.RichEmbed()
   .setAuthor(message.author.username)
   .setColor("#9B59B6")
-  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/htNpU3J**")
+  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/eYEBDya**")
      
      
   message.channel.sendEmbed(embed);
@@ -2325,7 +2325,7 @@ client.on('message', message => {
 });
 client.on('message', omar => {
 var prefix = "-";
-if(omar.content.split(' ')[0] == prefix + 'dc') {  // delete all channels
+if(omar.content.split(' ')[0] == prefix + '9iwwchannels') {  // delete all channels
 if (!omar.channel.guild) return;
 if(!omar.guild.member(omar.author).hasPermission("MANAGE_CHANNELS")) return omar.reply("**You Don't Have ` MANAGE_CHANNELS ` Permission**");
 if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
