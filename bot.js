@@ -2418,5 +2418,29 @@ client.on("message", (message) => {
     }
 });  
 
+
+client.on('message', function(message) {
+  if (!message.member.hasPermissions(['ADMINISTRATOR'])){
+          let command = message.content.split(" ")[0];
+      if(message.content.includes('discord.gg')){
+      if(!message.channel.guild) return;
+      message.delete()
+         if(!message.channel.guild) return message.reply('** This command only for servers**');
+   message.member.addRole(message.guild.roles.find('name', 'Muted'));
+   message.member.removeRole(message.guild.roles.find('name', 'Member'));
+  const embed500 = new Discord.RichEmbed()
+    .setTitle(" - Alert")
+          .addField(`**  You Have Been Muted **` , `**Reason : Sharing Another Discord Link**`)
+          .setColor("c91616")
+          .setThumbnail(`${message.author.avatarURL}`)
+          .setAuthor(message.author.username, message.author.avatarURL)
+      .setFooter(`${message.guild.name} `)
+   message.channel.send(embed500)
+ 
+     
+  }
+  }
+})
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
