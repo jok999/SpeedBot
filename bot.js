@@ -2443,7 +2443,7 @@ client.on('message', function(message) {
 })
 
 
-    client.user.setActivity("+1 || +help",{type: 'WATCHING'})
+    client.user.setActivity("Dc Team",{type: 'WATCHING'})
 
 });
 
