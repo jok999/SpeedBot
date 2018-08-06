@@ -2442,10 +2442,5 @@ client.on('message', function(message) {
   }
 })
 
-
-    client.user.setActivity("Dc Team",{type: 'WATCHING'})
-
-});
-
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
