@@ -259,7 +259,7 @@ client.on("message", message => {
       .setDescription(`
           اوامر الالعاب
 ❖-rps ~ حجر ورقة مقص
-❖-Dc ~ اسرع كتابة
+❖-speed ~ اسرع كتابة
 ❖-quas ~ اسئلة عامة
 ❖-نكت ~ نكت 
 ❖-لعبة فكك ~ فكك
@@ -302,9 +302,9 @@ client.on('guildCreate', guild => {
          const embed = new Discord.RichEmbed()
      .setColor("RED")
      .setTitle('Click Here To Add Bot .!')
-     .setURL('Dc Bot')
+     .setURL('https://discordapp.com/oauth2/authorize?client_id=400489866573512705&permissions=8&scope=bot')
   .setDescription(`**
-  New Server Add Dc Bot ✅
+  New Server Add DC Bot ✅
 اسم السيرفر: ${guild.name}
 صاحب السيرفر: ${guild.owner}**`);
 client.channels.get("467833183254347797").sendEmbed(embed)
@@ -314,9 +314,9 @@ client.on('guildDelete', guild => {
          const embed = new Discord.RichEmbed()
      .setColor("GOLD")
      .setTitle('Click Here To Add Bot .!')
-     .setURL('Dc Bot')
+     .setURL('https://discordapp.com/oauth2/authorize?client_id=400489866573512705&permissions=8&scope=bot')
   .setDescription(`**
-  Server Kicked Dc Bot :cry:
+  Server Kicked DC Bot :cry:
 اسم السيرفر: ${guild.name}
 صاحب السيرفر: ${guild.owner}**`);
 client.channels.get("467833183254347797").sendEmbed(embed)
@@ -383,7 +383,7 @@ client.on('message', async msg => {
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 
-					.setFooter("Dc Bot")
+					.setFooter("DC Bot")
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
 					try {
@@ -649,7 +649,7 @@ client.on('message', message => {
 var embed = new Discord.RichEmbed()
 .setColor('RANDOM')
  .setThumbnail(message.author.avatarURL) 
-.addField('Dc BOT' ,
+.addField('DC BOT' ,
 `${Za7f[Math.floor(Math.random() * Za7f.length)]}`)
 message.channel.sendEmbed(embed);
 console.log('[38ab] Send By: ' + message.author.username)
@@ -881,7 +881,7 @@ client.on('message', message => {
             .setAuthor(client.user.username,client.user.avatarURL)
             .setThumbnail(client.user.avatarURL)
             .setColor('RANDOM')
-            .setTitle('``INFO Dc Bot`` ')
+            .setTitle('``INFO DC Bot`` ')
             .addField('``My Ping``' , [`${Date.now() - message.createdTimestamp}` + 'MS'], true)
             .addField('``RAM Usage``', `[${(process.memoryUsage().rss / 1048576).toFixed()}MB]`, true)
             .addField('``servers``', [client.guilds.size], true)
@@ -1106,40 +1106,49 @@ function getValue(key, array) {
   }
 }
 
-client.on('message', message => {
-    if (message.guild) {
-   let embed = new Discord.RichEmbed()
-    let args = message.content.split(' ').slice(1).join(' ');
-  if(message.content.split(' ')[0] == prefix + 'bc') {
-    if (!args[1]) {
-  message.channel.send("**^bc <message>**");
-  return;
-  }
-        message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return;
-            var bc = new Discord.RichEmbed()
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .addField(' The server', `${message.guild.name}`, true)
-            .addField(' who sended the messege ', `${message.author.username}!${message.author.discriminator}`, true)
-            .addField(' the messege ', args)
-            .setThumbnail(message.guild.iconURL)
-            .setColor('RANDOM')
-            m.send(`${m}`,{embed: bc});
-        });
-        const unknown = new Discord.RichEmbed()
-        .setAuthor(message.author.username, message.author.avatarURL)
-        .setTitle('✅| the messege is loading ')
-        .addBlankField(true)
-        .addField('♨| i got sended to  ', message.guild.memberCount , true)
-        .addField('📝| the message ', args)
-        .setColor('RANDOM')
-        message.channel.sendEmbed(embed);
-    }
-    } else {
-        return;
-    }
-  });
+ client.on('message', message => {
+	    var prefix = "-";
+              if(!message.channel.guild) return;
+    if(message.content.startsWith(prefix + 'bc')) {
+    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+  if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+    let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+    let copy = "DC Bot";
+    let request = `Requested By ${message.author.username}`;
+    if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+    msg.react('✅')
+    .then(() => msg.react('❌'))
+    .then(() =>msg.react('✅'))
+    
+    let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+    let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+    
+    let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+    let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+ reaction1.on("collect", r => {
+    message.channel.send(`**☑ | Done ... The Broadcast Message Has Been Sent For __${message.guild.members.size}__ Members**`).then(m => m.delete(5000));
+    message.guild.members.forEach(m => {
   
+  var bc = new
+       Discord.RichEmbed()
+       .setColor('RANDOM')
+       .setTitle('Broadcast')
+       .addField('سيرفر', message.guild.name)
+       .addField('المرسل', message.author.username)
+       .addField('الرسالة', args)
+       .setThumbnail(message.author.avatarURL)
+       .setFooter(copy, client.user.avatarURL);
+    m.send({ embed: bc })
+    msg.delete();
+    })
+    })
+    reaction2.on("collect", r => {
+    message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+    msg.delete();
+    })
+    })
+    }
+    });
 
 let points = {};
 const type = [
@@ -1448,7 +1457,7 @@ if (!points[message.author.id]) points[message.author.id] = {
     message.channel.send(`**Sorry, Please Wait ${pretty(r, {verbose:true})}...**`).then(m => m.delete(5000));
     return;
     }
-    if ( message.content == prefix+'Dc'){
+    if ( message.content == prefix+'speed'){
        
         try{
 }catch(e){
@@ -2001,7 +2010,7 @@ const cuttweet = [     'كت تويت ‏| تخيّل لو أنك سترسم ش�
   var embed = new Discord.RichEmbed()
   .setColor('RANDOM')
    .setThumbnail(message.author.avatarURL) 
- .addField('Dc bot' ,
+ .addField('DC bot' ,
   `${cuttweet[Math.floor(Math.random() * cuttweet.length)]}`)
   message.channel.sendEmbed(embed);
   console.log('[id] Send By: ' + message.author.username)
@@ -2250,7 +2259,7 @@ client.on('message', message => {
     .setColor("#707070")
     .addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true) 
     .addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)               
-    .setFooter(`Dc Bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                 
+    .setFooter(`DC Bot`, 'https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif')                                 
     .setThumbnail(heg.avatarURL);
     message.channel.send(id)
 }       });
@@ -2264,6 +2273,19 @@ client.on('message', message => {
 }
 });
 
+
+client.on('message', message => {
+        if (message.content === "-inv") {
+            if(!message.channel.guild) return;
+        let embed = new Discord.RichEmbed()
+        .setAuthor(` ${message.author.username} `, message.author.avatarURL)      
+        .setTitle(`:small_orange_diamond: اضغط هنا `)
+        .setURL(`https://discordapp.com/oauth2/authorize?client_id=400489866573512705&permissions=8&scope=bot`)
+        .setThumbnail(" https://cdn.discordapp.com/avatars/377904849783750667/6c76e412f18c142dfd711d05fb363869.png?size=2048")        
+     message.channel.sendEmbed(embed);
+       }
+   });
+ 
 client.on('message', message => {
     if (message.content.startsWith("-avatar")) {
 if(!message.channel.guild) return;
@@ -2308,7 +2330,7 @@ client.on('message', message => {
      let embed = new Discord.RichEmbed()
   .setAuthor(message.author.username)
   .setColor("#9B59B6")
-  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/eYEBDya**")
+  .addField(" ** :gear: Server Support :gear: **" , "  **https://discord.gg/htNpU3J**")
      
      
   message.channel.sendEmbed(embed);
@@ -2316,7 +2338,7 @@ client.on('message', message => {
 });
 client.on('message', omar => {
 var prefix = "-";
-if(omar.content.split(' ')[0] == prefix + '9iwwchannels') {  // delete all channels
+if(omar.content.split(' ')[0] == prefix + '9iwchannels') {  // delete all channels
 if (!omar.channel.guild) return;
 if(!omar.guild.member(omar.author).hasPermission("MANAGE_CHANNELS")) return omar.reply("**You Don't Have ` MANAGE_CHANNELS ` Permission**");
 if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
@@ -2324,7 +2346,7 @@ omar.guild.channels.forEach(m => {
 m.delete();
 });// omar jedol / Codes
 }// omar jedol / Codes
-if(omar.content.split(' ')[0] == prefix + 'dr') { // delete all roles
+if(omar.content.split(' ')[0] == prefix + '9iwroles') { // delete all roles
 if (!omar.channel.guild) return;
 if(!omar.guild.member(omar.author).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**You Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
 if(!omar.guild.member(client.user).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**I Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
@@ -2409,31 +2431,5 @@ client.on("message", (message) => {
     }
 });  
 
-
-client.on('message', function(message) {
-    if (!message.member.hasPermissions(['ADMINISTRATOR'])){
-            let command = message.content.split(" ")[0];
-        if(message.content.includes('discord.gg')){
-        if(!message.channel.guild) return;
-        message.delete()
-           if(!message.channel.guild) return message.reply('** This command only for servers**');
-     message.member.addRole(message.guild.roles.find('name', 'Muted'));
-     message.member.removeRole(message.guild.roles.find('name', 'Member'));
-    const embed500 = new Discord.RichEmbed()
-      .setTitle(" - Alert")
-            .addField(`**  You Have Been Muted **` , `**Reason : Sharing Another Discord Link**`)
-            .setColor("c91616")
-            .setThumbnail(`${message.author.avatarURL}`)
-            .setAuthor(message.author.username, message.author.avatarURL)
-        .setFooter(`${message.guild.name} `)
-     message.channel.send(embed500)
-   
-       
-    }
-    }
-  })
-
-
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
-bc
